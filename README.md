@@ -20,7 +20,7 @@ To ensure proper execution, the following structure is maintained:
 ### 👤 Standard Users
 1. Enter your username.
 2. The system cross-references the input with `blacklist.txt`.
-3. Access is **GRANTED** or **DENIED** instantly.
+3. Access is **GRANTED** or **DENIED** instantly. 
 
 ### 🔑 Administrator Mode
 * Access by entering `admin` at the username prompt.
