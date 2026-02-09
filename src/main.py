@@ -2,8 +2,10 @@ from datetime import datetime
 import os
 import re
 
-if not os.path.exists("data"):
-    os.makedirs("data")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "..", "data")
+if not os.path.exists(DATA_DIR):
+    os.makedirs(DATA_DIR)
 
 # 🔑 LLAVE MAESTRA
 ADMIN_PASSWORD = (
@@ -13,7 +15,7 @@ ADMIN_PASSWORD = (
 
 class SecurityManager:
     def __init__(self, db_file="blacklist.txt"):
-        self.db_file = "data/blacklist.txt"
+        self.db_file = os.path.join(DATA_DIR, "blacklist.txt")
         self._ensure_db_exists()
 
     def _ensure_db_exists(self):
@@ -57,12 +59,14 @@ class SecurityManager:
 
     def log_event(self, event_type, username):
         now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        with open("access_log.txt", "a", encoding="utf-8") as f:
+        with open(os.path.join(DATA_DIR, "access_log.txt"), "a", encoding="utf-8") as f:
             f.write(f"[{now}] {event_type}: {username}\n")
 
     def show_history(self):
         try:
-            with open("access_log.txt", "r", encoding="utf-8") as f:
+            with open(
+                os.path.join(DATA_DIR, "access_log.txt"), "r", encoding="utf-8"
+            ) as f:
                 print("\n" + "=" * 40 + "\n📜 HISTORIAL DE SEGURIDAD\n" + "=" * 40)
                 print(f.read() or "El historial está vacío.")
         except FileNotFoundError:
@@ -124,4 +128,3 @@ def main():
 
 if __name__ == "__main__":
     main()
- 
