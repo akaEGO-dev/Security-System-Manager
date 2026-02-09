@@ -1,8 +1,9 @@
 from datetime import datetime
 import os
 import re
-from datetime import datetime
-import os
+
+if not os.path.exists("data"):
+    os.makedirs("data")
 
 # 🔑 LLAVE MAESTRA
 ADMIN_PASSWORD = (
