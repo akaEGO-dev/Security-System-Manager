@@ -14,8 +14,8 @@ class SecurityManager:
 
     def _ensure_db_exists(self):
         if not os.path.exists(self.db_file):
-            with open(self.db_file, "w", encoding="utf-8") as f:
-                pass
+            with open(self.db_file, "w") as f:
+                pass # Esto crea el archivo vacío y lo cierra al instante
 
     def is_valid_name(self, name):
         """Filtra nombres falsos, repetidos o con números"""
