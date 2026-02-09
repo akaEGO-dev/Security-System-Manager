@@ -20,4 +20,11 @@ Sistema bilingüe de gestión de acceso con validación avanzada y registro de a
 
 ## 🔒 Privacidad y Seguridad
 > [!IMPORTANT]
-> Este repositorio utiliza un archivo `.gitignore`. Las bases de datos locales (`blacklist.txt`) y los registros (`access_log.txt`) **nunca** se suben a la nube.
+> Este repositorio utiliza un archivo `.gitignore`. Las bases de datos locales (`blacklist.txt`) y los registros (`access_log.txt`) **nunca** se suben a la nube para proteger la privacidad de los datos.
+
+---
+
+## 👤 Autor / Author
+* **Desarrollador:** [Francisco Cruz / akaEGO-dev]
+* **GitHub:** [@akaEGO-dev](https://github.com/akaEGO-dev)
+* **Proyecto:** Security System Manager - 2026
