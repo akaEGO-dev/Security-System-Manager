@@ -9,7 +9,7 @@ ADMIN_PASSWORD = "TU CONTRASEÑA AQUÍ / UR PASSWORD HERE" # Replace with your a
 
 class SecurityManager:
     def __init__(self, db_file="blacklist.txt"):
-        self.db_file = db_file
+        self.db_file = "data/blacklist.txt"
         self._ensure_db_exists()
 
     def _ensure_db_exists(self):
