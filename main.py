@@ -1,63 +1,61 @@
 import os
 
-# Esto detecta la carpeta real donde está tu main.py
-carpeta_actual = os.path.dirname(os.path.abspath(__file__))
-# Esto crea el archivo justo ahí al lado
-DB_FILE = os.path.join(carpeta_actual, "blacklist.txt")
+
+class SecurityManager:
+    def __init__(self, db_file="blacklist.txt"):
+        self.db_file = db_file
+        self._ensure_db_exists()
+
+    def _ensure_db_exists(self):
+        """Asegura que la base de datos existe sin borrar datos previos."""
+        if not os.path.exists(self.db_file):
+            with open(self.db_file, "w", encoding="utf-8") as f:
+                pass
+
+    def check_access(self, username):
+        """Verifica si un usuario está en la lista negra."""
+        with open(self.db_file, "r", encoding="utf-8") as f:
+            blacklist = [line.strip().lower() for line in f.readlines()]
+        return username.lower() not in blacklist
+
+    def add_to_blacklist(self, username):
+        """Añade un usuario a la lista negra si no existe."""
+        if not self.check_access(username):
+            print(f"⚠️  {username} ya está en la lista negra.")
+            return False
+
+        with open(self.db_file, "a", encoding="utf-8") as f:
+            f.write(f"{username}\n")
+        return True
 
 
-def load_list():
-    if not os.path.exists(DB_FILE):
-        return []
-    with open(DB_FILE, "r") as f:
-        # Leemos el archivo y  lo limpiadmos de espacios/saltos de linea.
-        return [line.strip() for line in f.readlines()]
+# --- Lógica de Interfaz (akaEGO-dev Interface) ---
+def main():
+    manager = SecurityManager()
+    print("--- 🛡️ Security System Manager v4.0 ---")
 
+    while True:
+        print("\n1. Verificar Acceso\n2. Bloquear Usuario\n3. Salir")
+        opcion = input("Seleccione una opción: ")
 
-def save_name(nombre):
-    with open(DB_FILE, "a") as f:
-        f.write(nombre + "\n")
-
-
-# --- INICIO DEL PROGRAMA ---
-black_list = load_list()
-admin_pass = "2026_secure"
-
-while True:
-    print(f"\n--- SISTEMA DE SEGURIDAD V3 (DB Activa) ---")
-    user_input = input("Nombre a verificar (o 'admin'): ").lower().strip()
-
-    if user_input == "salir":
-        break
-
-    # 1. CARGAMOS LA LISTA ACTUALIZADA Y EN MINÚSCULAS
-    black_list = [n.lower() for n in load_list()]
-
-    # 2. CASO ADMINISTRADOR:
-    if user_input == "admin":
-        if input("Password: ") == admin_pass:
-            print(f"--- LISTA NEGRA ACTUAL: {black_list} ---")
-            target_user = (
-                input("Nombre a gestionar (Bloquear/Desbloquear): ").lower().strip()
-            )
-
-            if target_user in black_list:
-                # LÓGICA DE DESBLOQUEO
-                black_list.remove(target_user)
-                with open(DB_FILE, "w") as f:
-                    for n in black_list:
-                        f.write(n + "\n")
-                print(f"✅ {target_user} ha sido DESBLOQUEADO y eliminado del archivo.")
+        if opcion == "1":
+            user = input("Introduce usuario: ")
+            if manager.check_access(user):
+                print(f"✅ Acceso CONCEDIDO a {user}.")
             else:
-                # LÓGICA DE BLOQUEO (La que ya tenías)
-                save_name(target_user)
-                print(f"🚫 {target_user} ha sido BLOQUEADO permanentemente.")
-        else:
-            print("ACCESO DENEGADO (Password incorrecto)")
+                print(f"❌ Acceso DENEGADO. {user} está en la lista negra.")
 
-    # 3. CASO USUARIO NORMAL:
-    else:
-        if user_input in [n.lower() for n in black_list]:
-            print(f"ALERTA: {user_input} está bloqueado")
+        elif opcion == "2":
+            user = input("Usuario a bloquear: ")
+            if manager.add_to_blacklist(user):
+                print(f"🚫 {user} ha sido añadido a la lista negra.")
+
+        elif opcion == "3":
+            print("Cerrando sistema...")
+            break
         else:
-            print(f"ACCESO PERMITIDO PARA {user_input}")
+            print("Opción no válida.")
+
+
+if __name__ == "__main__":
+    main()
