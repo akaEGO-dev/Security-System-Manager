@@ -55,10 +55,11 @@ class SecurityManager:
         return False
 
     def log_event(self, event_type, username):
+        # Esta es la línea mágica que te falta:
         now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
-    with open(os.path.join(DATA_DIR, "access_log.txt"), "a", encoding="utf-8") as f:
-        f.write(f"[{now}] {event_type}: {username}\n")
+        
+        with open(os.path.join(DATA_DIR, "access_log.txt"), "a", encoding="utf-8") as f:
+            f.write(f"[{now}] {event_type}: {username}\n")
 
     def show_history(self):
         try:
