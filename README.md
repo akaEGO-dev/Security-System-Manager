@@ -1,8 +1,8 @@
 # 🛡️ Security Access Manager (v7.0)
 
-![Python](https://img.shields.io/badge/Language-Python-3.x-blue?style=flat-square&logo=python)
-![Security](https://img.shields.io/badge/Security-Validated-green?style=flat-square)
-
+![Python](https://img.shields.io/badge/Language-Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Security](https://img.shields.io/badge/Security-Validated-success?style=for-the-badge&logo=shield)
+![Status](https://img.shields.io/badge/Status-Finalized-green?style=for-the-badge)
 ---
 
 ## 📖 Descripción / Description
