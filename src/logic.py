@@ -2,14 +2,12 @@ from datetime import datetime
 import os
 import re
 
-# Configuramos las rutas relativas para que funcione desde src
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "..", "data")
 
 if not os.path.exists(DATA_DIR):
     os.makedirs(DATA_DIR)
 
-# 🔑 LLAVE MAESTRA (La lógica la necesita para validar)
 ADMIN_PASSWORD = "TU CONTRASEÑA AQUÍ"
 
 
@@ -55,9 +53,8 @@ class SecurityManager:
         return False
 
     def log_event(self, event_type, username):
-        # Esta es la línea mágica que te falta:
         now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        
+
         with open(os.path.join(DATA_DIR, "access_log.txt"), "a", encoding="utf-8") as f:
             f.write(f"[{now}] {event_type}: {username}\n")
 
@@ -70,6 +67,3 @@ class SecurityManager:
                 print(f.read() or "El historial está vacío.")
         except FileNotFoundError:
             print("\n📭 No hay historial.")
-
-
-# (Sustituye SecurityManager por el nombre real de tu clase)
