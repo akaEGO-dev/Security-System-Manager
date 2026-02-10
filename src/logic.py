@@ -53,7 +53,12 @@ class SecurityManager:
         return False
 
     def log_event(self, event_type, username):
+
         now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        log_path = os.path.join(DATA_DIR, "access_log.txt")
+        with open(log_path, "a", encoding="utf-8") as f:
+            f.write(f"[{now}] {event_type}: {username}\n")
 
         with open(os.path.join(DATA_DIR, "access_log.txt"), "a", encoding="utf-8") as f:
             f.write(f"[{now}] {event_type}: {username}\n")
